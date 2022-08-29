@@ -287,17 +287,16 @@ components:
           type: integer
           format: int64
     PetCreate:
-      type: object
-      x-model: PetCreate
+#      type: object
       allOf:
         - $ref: "#/components/schemas/PetCreatePartOne"
-        - $ref: "#/components/schemas/PetCreatePartTwo"
-      oneOf:
-        - $ref: "#/components/schemas/Cat"
-        - $ref: "#/components/schemas/Bird"
+        - type: object
+          properties:
+            birth_date:
+              type: string
+              format: date
     PetCreatePartOne:
       type: object
-      x-model: PetCreatePartOne
       required:
         - name
       properties:

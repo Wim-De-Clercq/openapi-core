@@ -1,5 +1,6 @@
 import json
 from base64 import b64encode
+from datetime import date
 from datetime import datetime
 from uuid import UUID
 
@@ -549,6 +550,39 @@ class TestPetstore:
         body = spec_validate_body(spec, request)
 
         assert body is None
+
+    def test_birth_date(self, spec):
+        host_url = "https://staging.gigantic-server.com/v1"
+        path_pattern = "/v1/pets"
+        headers = {
+            "api-key": self.api_key_encoded,
+        }
+        cookies = {
+            "user": "123",
+            "userdata": {
+                "name": "user1",
+            },
+        }
+
+        data_json = {
+            "name": "required",
+            "birth_date": "2022-09-18"
+        }
+        data = json.dumps(data_json)
+
+        request = MockRequest(
+            host_url,
+            "POST",
+            "/pets",
+            path_pattern=path_pattern,
+            data=data,
+            headers=headers,
+            cookies=cookies,
+        )
+
+        body = spec_validate_body(spec, request)
+
+        assert isinstance(body["birth_date"], date)
 
     def test_post_birds(self, spec, spec_dict):
         host_url = "https://staging.gigantic-server.com/v1"
