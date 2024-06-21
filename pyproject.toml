@@ -123,9 +123,6 @@ addopts = """
 --verbose
 --showlocals
 --junitxml=reports/junit.xml
---cov=openapi_core
---cov-report=term-missing
---cov-report=xml
 """
 asyncio_mode = "auto"
 filterwarnings = [

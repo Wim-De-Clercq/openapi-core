@@ -53,12 +53,13 @@ class SchemaValidatorsFactory:
         schema: SchemaPath,
         format_validators: Optional[FormatValidatorsDict] = None,
         extra_format_validators: Optional[FormatValidatorsDict] = None,
-    ) -> Validator:
+    ) -> SchemaValidator:
         format_checker = self.get_format_checker(
             format_validators, extra_format_validators
         )
-        resolver = schema.accessor.resolver  # type: ignore
-        with schema.open() as schema_dict:
+        with schema.resolve() as resolved:
+            schema_dict = resolved.contents
+            resolver = resolved.resolver
             jsonschema_validator = self.schema_validator_class(
                 schema_dict,
                 _resolver=resolver,

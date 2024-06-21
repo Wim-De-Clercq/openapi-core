@@ -1,0 +1,8 @@
+User:
+  x-model: User
+  type: object
+  required:
+    - id
+  properties:
+    id:
+      $ref: './common.yaml#/int32'

@@ -1,0 +1,22 @@
+openapi: "3.0.0"
+info:
+  title: Specification Containing readOnly
+  version: "0.1"
+paths:
+  /users:
+    post:
+        operationId: createUser
+        requestBody:
+          description: Post data for creating a user
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: './subfolder/schemas.yaml#/User'
+        responses:
+          default:
+            description: Create a user
+            content:
+              application/json:
+                schema:
+                  $ref: './subfolder/schemas.yaml#/User'
